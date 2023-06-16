@@ -1,5 +1,6 @@
 package com.ecommerce.backendone.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +16,8 @@ import com.ecommerce.backendone.service.FetchService;
 
 @Service
 public class FetchServiceImpl implements FetchService {
+	@Autowired
+	private RestTemplate restTemplate;
     @Value("${backend-three.api.url}")
     private String url;
 
@@ -25,7 +28,6 @@ public class FetchServiceImpl implements FetchService {
         headers.set("Authorization", token);
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<User> response = restTemplate.exchange(url + "/users/validate", HttpMethod.GET, requestEntity, User.class, 0);
         if (!response.getStatusCode().is2xxSuccessful())
             throw new NotAuthorizedException("Invalid jwt");
