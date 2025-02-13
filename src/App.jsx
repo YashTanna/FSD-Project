@@ -1,23 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Navigation from './customer/components/navigation/Navigation'
+// import './App.css'
+
+import Footer from './customer/components/Footer/Footer'
+import Navigation from './customer/components/Navigation/Navigation'
+import Product from './customer/components/Product/Product'
 import HomePage from './customer/pages/HomePage/HomePage'
-import Items from './customer/components/test/Items'
-import tractor from './customer/components/test/tractor.jpg'
-import Image from './customer/components/test/image.jpg'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <Navigation />
+      <Navigation/>
       <div>
-        <HomePage/>
+        {/* <HomePage/> */}
+        <Product/>
         {/* <Items/> */}
       </div>
+      <Footer/>
     </>
   )
 }
