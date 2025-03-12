@@ -11,7 +11,7 @@ import CartProductCard from "../components/cards/CartProductCard";
 import styles from "./Cart.module.css";
 import MessageCard from "../components/cards/MessageCard";
 import NoticeModal from "../components/modals/NoticeModal";
-
+// 
 export default function CartPage() {
   const [cart, setCart] = useState(null);
   const [isOpen, setIsOpen] = useState(false);

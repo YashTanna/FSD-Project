@@ -10,7 +10,7 @@ export default function Category() {
   const [category, setCategory] = useState(null);
   const categoryId = Number(useParams().categoryId);
   const { width } = useWindowDimensions();
-
+// 
   useEffect(() => {
     getCategory(categoryId)
       .then((category) => setCategory(category))

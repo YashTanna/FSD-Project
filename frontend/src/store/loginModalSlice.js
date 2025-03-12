@@ -18,3 +18,4 @@ const loginModalSlice = createSlice({
 });
 
 export default loginModalSlice;
+// 
