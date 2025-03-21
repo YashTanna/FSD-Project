@@ -16,7 +16,7 @@ public class User {
 
     private String name;
     private String email;
-    private String password; // Hashed
+    private String password; // Stored as an encoded (hashed) value
     private String role; // 'user' or 'admin'
 
     private LocalDate createdAt;

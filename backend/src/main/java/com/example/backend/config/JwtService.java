@@ -2,15 +2,19 @@ package com.example.backend.config;
 
 import java.security.Key;
 import java.util.Date;
-import org.springframework.stereotype.Component;
-import io.jsonwebtoken.*;
+import java.util.function.Function;
+import org.springframework.stereotype.Service;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
-@Component
-public class JwtUtil {
-    // Ensure this is a BASE64-encoded string with at least 256 bits
-    private static final String SECRET_KEY = "YOUR_BASE64_ENCODED_SECRET_KEY_HERE_32_BYTES_MINIMUM";
+@Service
+public class JwtService {
+    // Replace with your actual Base64-encoded secret key (must decode to at least
+    // 32 bytes)
+    private static final String SECRET_KEY = "VGhpcyBpcyBhIHZhbGlkIEJhc2U2NCBLZXkgZm9yIFRlc3Rpbmch";
 
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
@@ -27,7 +31,12 @@ public class JwtUtil {
     }
 
     public String extractUsername(String token) {
-        return extractAllClaims(token).getSubject();
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
     }
 
     private Claims extractAllClaims(String token) {
