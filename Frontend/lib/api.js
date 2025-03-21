@@ -1,8 +1,29 @@
 // Updated API service to use real backend endpoints
 
+export async function registerUser(userData) {
+  const res = await fetch("https://localhost:8080/api/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userData),
+  });
+  if (!res.ok) throw new Error("Registration failed");
+  return res.json();
+}
+
+export async function loginUser(credentials) {
+  const res = await fetch("https://localhost:8080/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  });
+  if (!res.ok) throw new Error("Invalid credentials");
+  return res.json();
+}
+
+
 // Helper function for API requests
 async function fetchAPI(endpoint, options = {}) {
-  const response = await fetch(`https://localhost:8080/api${endpoint}`, {
+  const response = await fetch(`http://localhost:8080/api${endpoint}`, {
     headers: {
       "Content-Type": "application/json",
       ...options.headers,

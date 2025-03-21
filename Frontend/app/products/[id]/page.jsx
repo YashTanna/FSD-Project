@@ -1,14 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useParams, useRouter } from "next/navigation"
-import Image from "next/image"
 import { ArrowLeft, ShoppingCart } from "lucide-react"
+import Image from "next/image"
+import { useParams, useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useToast } from "@/hooks/use-toast"
-import { getProduct, addToCart } from "@/lib/api"
+import { addToCart, getProduct } from "@/lib/api"
 
 export default function ProductPage() {
   const params = useParams()
