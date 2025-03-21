@@ -1,6 +1,8 @@
 package com.example.backend.entities;
 
 import java.time.LocalDate;
+import java.util.UUID;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,4 +23,11 @@ public class User {
 
     private LocalDate createdAt;
     private LocalDate updatedAt;
+
+    @PrePersist
+    public void generateId() {
+        if (this.id == null) {
+            this.id = UUID.randomUUID().toString();
+        }
+    }
 }

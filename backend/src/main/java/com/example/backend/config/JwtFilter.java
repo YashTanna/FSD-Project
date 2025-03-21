@@ -10,6 +10,7 @@ import com.example.backend.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -25,39 +26,50 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain)
-            throws ServletException, IOException {
-
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
+                                    throws ServletException, IOException {
+        // Define public endpoints (they won't be processed by this filter)
         String requestURI = request.getRequestURI();
-
-        // Skip JWT validation for endpoints under /api/auth/
-        if (requestURI.startsWith("/api/auth/")) {
+        if (requestURI.equals("/api/auth/register") ||
+            requestURI.equals("/api/auth/login") ||
+            requestURI.equals("/api/auth/logout")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        final String authHeader = request.getHeader("Authorization");
-        String username = null;
-        String token = null;
+        // Debug: Print the Authorization header (if any)
+        String authHeader = request.getHeader("Authorization");
+        System.out.println("Authorization header: " + authHeader);
+
+        String jwtToken = null;
+        String userEmail = null;
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7);
+            jwtToken = authHeader.substring(7);
             try {
-                username = jwtService.extractUsername(token);
+                userEmail = jwtService.extractUsername(jwtToken);
+                System.out.println("Extracted username from token: " + userEmail);
             } catch (Exception e) {
-                logger.error("Error extracting username from token", e);
+                System.out.println("Error extracting username from token: " + e.getMessage());
             }
+        } else {
+            System.out.println("No Bearer token found in header.");
         }
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            var userDetails = userDetailsService.loadUserByUsername(username);
-            if (username.equals(userDetails.getUsername())) { // Optionally add further checks (expiration, etc.)
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
-                        null, userDetails.getAuthorities());
+        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
+            if (userDetails != null) {
+                UsernamePasswordAuthenticationToken authToken =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+                System.out.println("User authenticated: " + userDetails.getUsername());
+            } else {
+                System.out.println("UserDetails returned null for: " + userEmail);
             }
+        } else {
+            System.out.println("User email is null or authentication already set.");
         }
 
         filterChain.doFilter(request, response);
