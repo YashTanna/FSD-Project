@@ -61,6 +61,9 @@ function Controls(props) {
     deleteProduct(product);
     setIsOpen(false);
   };
+  // return(
+  //   mlakbckdbcdkb
+  // )
 
   return (
     <div className={styles["counter"]}>
