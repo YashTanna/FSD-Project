@@ -41,19 +41,19 @@ export default function CartPage() {
     }
   }, [isLoggedIn, user]);
 
-  if (!isLoggedIn) return <MessageCard message="Not Logged In" />;
-  if (!cart || cart.cartItems.length === 0)
-    return (
-      <>
-        <NoticeModal
-          title="Order Placed"
-          message="Your order has been successfully processed"
-          onClose={() => setIsOpen(false)}
-          isOpen={isOpen}
-        />
-        <MessageCard message="Cart Is Empty" />
-      </>
-    );
+     if (!isLoggedIn) return <MessageCard message="Not Logged In" />;
+      if (!cart || cart.cartItems.length === 0)
+        return (
+          <>
+            <NoticeModal
+              title="Order Placed"
+              message="Your order has been successfully processed"
+              onClose={() => setIsOpen(false)}
+              isOpen={isOpen}
+            />
+            <MessageCard message="Cart Is Empty" />
+          </>
+        );
 
   const total = cart.totalAmount;
 
