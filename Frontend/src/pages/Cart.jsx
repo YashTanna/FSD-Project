@@ -56,7 +56,7 @@ export default function CartPage() {
     );
 
   const total = cart.totalAmount;
-
+    // const total = cart.totalAmotnt;
   return (
     <div className="bg-white">
       {cart.cartItems.map((product) => {

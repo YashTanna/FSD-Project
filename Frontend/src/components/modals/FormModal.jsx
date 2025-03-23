@@ -6,6 +6,8 @@ import LoginForm from "../forms/LoginForm";
 import RegisterForm from "../forms/RegisterForm";
 import { actions } from "../../store";
 
+//form model
+
 export default function FormModal() {
   const [isLogin, setIsLogin] = useState(true);
   const dispatch = useDispatch();
