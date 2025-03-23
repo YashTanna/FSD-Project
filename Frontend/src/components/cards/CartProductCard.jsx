@@ -12,7 +12,7 @@ export default function CartProductCard(props) {
     updateProduct,
   } = props;
   const [count, setCount] = useState(quantity);
-
+  //return CardProduct 
   return (
     <div className={styles.card}>
       <div>
@@ -41,6 +41,7 @@ export default function CartProductCard(props) {
     </div>
   );
 }
+
 
 function Controls(props) {
   const { product, count } = props.values;

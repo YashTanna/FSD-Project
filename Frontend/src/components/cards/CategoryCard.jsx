@@ -10,6 +10,7 @@ export default function CategoryCard(props) {
     width,
   } = props;
 
+  //return CategoryCard
   return (
     <div className={styles["category-card"]} style={{ width }}>
       <Link to={`/categories/${categoryId}`}>

@@ -17,7 +17,7 @@ export default function ProductCard(props) {
       totalRating,
     },
   } = props;
-
+  //adding discout to it
   const discount = Math.floor(
     ((markedPrice - sellingPrice) * 100.0) / markedPrice
   );
