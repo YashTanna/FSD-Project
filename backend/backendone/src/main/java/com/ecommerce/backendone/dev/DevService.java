@@ -1,5 +1,5 @@
 package com.ecommerce.backendone.dev;
-// 
+
 import com.ecommerce.backendone.entity.Category;
 import com.ecommerce.backendone.entity.Product;
 import com.ecommerce.backendone.entity.Section;

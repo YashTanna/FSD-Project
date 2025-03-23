@@ -2,7 +2,7 @@ package com.ecommerce.backendone.dto.mapper;
 
 import com.ecommerce.backendone.dto.ReviewDto;
 import com.ecommerce.backendone.entity.Review;
-// 
+
 public class ReviewMapper {
     public static ReviewDto mapToDto(Review review) {
         return ReviewDto.builder()

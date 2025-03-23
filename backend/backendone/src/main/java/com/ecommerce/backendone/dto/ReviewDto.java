@@ -1,5 +1,5 @@
 package com.ecommerce.backendone.dto;
-// 
+
 import java.util.Date;
 
 import com.ecommerce.backendone.entity.Product;
